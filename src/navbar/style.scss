@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap');
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--background-color);
+    color: white;
+}
+
+:root {
+    --icon-size: 2rem;
+    --indicator-spacing: calc(var(--icon-size) / 8);
+    --border-radius: calc(var(--icon-size) / 4);
+    --nav-item-padding: calc(var(--icon-size) / 2);
+    --background-color: #272727;
+    // --indicator-color: linear-gradient(to right, #00b4db, #0083b0);
+    --text-color: linear-gradient(to right, #4568dc, #b06ab3);
+}
+
+
+.navbar {
+    background: #fff;
+    border-radius: var(--border-radius);
+    width: max-content;
+    margin: 0 auto;
+    margin-top: 10rem;
+    padding: 0 calc(var(--nav-item-padding) * 1.5);
+
+    .list {
+        display: flex;
+        position: relative;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        
+
+        .indicator {
+            position: absolute;
+            left: calc(var(--position) * (var(--icon-size) + var(--nav-item-padding) * 2));
+            transition: 250ms ease-in-out;
+
+            ::after, ::before {
+                content: "";
+                position: absolute;
+                border-radius: 100%;
+            }
+
+            ::after {
+                background: var(--indicator-color);
+                width: calc(var(--icon-size) * 2);
+                height: calc(var(--icon-size) * 2);
+                top: calc(-1 * var(--icon-size));
+            }
+
+            ::before {
+                background: var(--text-color);
+                width: calc((var(--icon-size) + var(--indicator-spacing)) * 2);
+                height: calc((var(--icon-size) + var(--indicator-spacing)) * 2);
+                top: calc(-1 * var(--icon-size) - var(--indicator-spacing));
+                left: calc(-1 * var(--indicator-spacing));
+            }  
+        }
+
+        a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: var(--nav-item-padding);
+            color: var(--background-color);
+            text-decoration: none;
+
+            .text {
+                position: absolute;
+                opacity: 0;
+                bottom: calc(-.5 * var(--nav-item-padding));
+                font-family: 'Titillium Web', sans-serif;
+                font-weight: 600;
+                font-size: 1rem;
+                pointer-events: none;
+                transform: translateY(50%);
+                transition: 200ms ease-in-out;
+            }
+
+            .icon {
+                position: relative;
+                transition: 200ms ease-in-out;
+
+                svg {
+                    display: block;
+                    width: var(--icon-size);
+                    height: var(--icon-size);
+                    fill: currentColor;
+                }
+            }
+
+        }
+
+        & .active .text {
+            background: var(--text-color);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            pointer-events: all;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        & .active .icon {
+            color: #fff;
+            transform: translateY(calc(-50% - var(--nav-item-padding)));
+        }
+    }
+}
